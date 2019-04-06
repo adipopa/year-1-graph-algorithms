@@ -42,7 +42,21 @@ class DirectedDictGraph:
             raise Exception("There already exists an edge from vertex " + str(x) + " to " + str(y) + ".")
         self.__dictIn[y].append(x)
 
-    @property
-    def no_of_vertices(self):
-        """ Returns a integer representing the number of vertices in the graph. """
-        return len(self.__dictIn.keys())
+    def shortest_path(self, src, dest):
+        """ Returns the lowest length path between vertices src and dest (if they exist), using a
+        backward breadth-first search from the ending vertex. """
+        if not self.is_vertex(src):
+            raise Exception("The vertex " + str(src) + " doesn't exist in this graph.")
+        if not self.is_vertex(dest):
+            raise Exception("The vertex " + str(dest) + " doesn't exist in this graph.")
+        queue = list()
+        queue.append([dest])
+        while queue:
+            path = queue.pop(0)
+            node = path[0]
+            if node == src:
+                return path
+            for adj in self.__dictIn[node]:
+                new_path = list(path)
+                new_path.insert(0, adj)
+                queue.append(new_path)
