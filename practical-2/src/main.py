@@ -32,7 +32,9 @@ def run():
             shortest_path = graph.shortest_path(x, y)
 
             if shortest_path:
-                print("The shortest path between vertices " + str(x) + " and " + str(y) + ":")
+                path_length = len(shortest_path) - 1
+                print("The shortest path between vertices " + str(x) + " and " + str(y) +
+                      ", having a length of " + str(path_length) + ":")
                 print(*shortest_path, sep=" -> ")
             else:
                 print("No path found between vertices " + str(x) + " and " + str(y) + ".")
